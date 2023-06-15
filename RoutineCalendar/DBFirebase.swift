@@ -35,7 +35,7 @@ extension DbFirebase{
         //let storeDate: [String : Any] = ["date": plan.date, "data": data!]
         //reference.document(plan.key).setData(storeDate)
 //        let storeDate: [String : Any] = ["date": routine.date, "data": routine.toDict()]
-        let storeData: [String : Any] = ["data": routine.toDict()]
+        let storeData: [String : Any] = ["data": routine.toDict(), "checkedDates": routine.checkedDates]
         reference.document(routine.key).setData(storeData)
     }
 }
@@ -79,16 +79,17 @@ extension DbFirebase{
              let data = documentChange.document.data()
                 //let plan = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archivedData) as? Plan
             let routine = Routine()
-                if let dictData = data["data"] as? [String: Any] {
-                        routine.toRoutine(dict: dictData)
-                }
-                var action: DbAction?
-                switch(documentChange.type){    // just set it as DbAction
-                    case .added: action = .Add
-                    case .modified: action = .Modify
-                    case .removed: action = .Delete
-                }
-                if let parentNotification = parentNotification { parentNotification(routine, action) } // alert parent
+            routine.checkedDates = data["checkedDates"] as! [String: Bool]
+            if let dictData = data["data"] as? [String: Any] {
+                routine.toRoutine(dict: dictData)
+            }
+            var action: DbAction?
+            switch(documentChange.type){    // just set it as DbAction
+            case .added: action = .Add
+            case .modified: action = .Modify
+            case .removed: action = .Delete
+            }
+            if let parentNotification = parentNotification { parentNotification(routine, action) } // alert parent
             
 
         }

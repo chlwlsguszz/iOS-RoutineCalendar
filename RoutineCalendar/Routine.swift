@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import FirebaseFirestore
+//import FirebaseFirestore
 
 class Routine /*NSObject, NSCoding*/{
 //    enum Kind: Int {
@@ -19,12 +19,14 @@ class Routine /*NSObject, NSCoding*/{
 //        }
 //        static var count: Int { return Kind.Etc.rawValue + 1}
 //    }
-    var key: String;        //var date: Date
+    var key: String        //var date: Date
     //var owner: String?;     var kind: Kind
-    var content: String;    var emoji: String
-    var when: String;
+    var content: String
+    var emoji: String
+    var when: String
+    var checkedDates: [String: Bool]
     
-    init(/*date: Date, owner: String?, kind: Kind, */content: String, emoji: String, when: String){
+    init(/*date: Date, owner: String?, kind: Kind, */content: String, emoji: String, when: String, checkedDates: [String: Bool]){
         self.key = UUID().uuidString   // 거의 unique한 id를 만들어 낸다.
 //        self.date = Date(timeInterval: 0, since: date)
 //        self.owner = Owner.getOwner()
@@ -32,6 +34,7 @@ class Routine /*NSObject, NSCoding*/{
         self.content = content
         self.emoji = emoji
         self.when = when
+        self.checkedDates = checkedDates
         //super.init()
     }
     
@@ -57,7 +60,7 @@ class Routine /*NSObject, NSCoding*/{
 }
 
 extension Routine{
-    convenience init(date: Date? = nil, withData: Bool = false){
+    convenience init(/*date: Date? = nil, withData: Bool = false*/){
 //        if withData == true{
 //            var index = Int(arc4random_uniform(UInt32(Kind.count)))
 //            let kind = Kind(rawValue: index)! // 이것의 타입은 옵셔널이다. Option+click해보라
@@ -72,7 +75,7 @@ extension Routine{
 //            self.init(date: date ?? Date(), owner: "me", kind: .Etc, content: "", emoji: "🏅", when: "")
 //
 //        }
-        self.init(/*date: date ?? Date(), owner: "me", kind: .Etc,*/ content: "", emoji: "🏅", when: "")
+        self.init(/*date: date ?? Date(), owner: "me", kind: .Etc,*/ content: "", emoji: "🏅", when: "", checkedDates: [:])
     }
 }
 
@@ -87,6 +90,7 @@ extension Routine{        // Plan.swift
         clonee.content = self.content
         clonee.emoji = self.emoji
         clonee.when = self.when
+        clonee.checkedDates = self.checkedDates
         return clonee
     }
 }
@@ -117,6 +121,19 @@ extension Routine {
         content = dict["content"] as! String
         emoji = dict["emoji"] as! String
         when = dict["when"] as! String
+    }
+}
+
+extension Routine {
+    
+    func toggleCheck(date: Date) {
+        checkedDates[date.toStringDate()] = !(checkedDates[date.toStringDate()] ?? false)
+    }
+    
+    func isChecked(date: Date) -> Bool {
+        print("debug2:\(date.toStringDate())")
+        print("debug2:\(checkedDates)")
+        return checkedDates[date.toStringDate()] ?? false
     }
 }
 

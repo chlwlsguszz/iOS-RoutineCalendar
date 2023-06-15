@@ -7,14 +7,14 @@
 
 import Foundation
 
-class RoutineGroup: NSObject{
+class RoutineGroup/*: NSObject*/{
     var routines = [Routine]()            // var plans: [Plan] = []와 동일, 퀴리를 만족하는 plan들만 저장한다.
     var fromDate, toDate: Date?     // queryPlan 함수에서 주어진다.
     var database: Database!
     var parentNotification: ((Routine?, DbAction?) -> Void)?
     
     init(parentNotification: ((Routine?, DbAction?) -> Void)? ){
-        super.init()
+        //super.init()
         self.parentNotification = parentNotification
         //database = DbMemory(parentNotification: receivingNotification) // 데이터베이스 생성
         database = DbFirebase(parentNotification: receivingNotification) // 데이터베이스 생성
@@ -54,7 +54,7 @@ extension RoutineGroup{    // PlanGroup.swift
 }
 
 extension RoutineGroup{     // PlanGroup.swift
-    func getRoutines(date: Date? = nil) -> [Routine] {
+    func getRoutines(/*date: Date? = nil*/) -> [Routine] {
         
         // plans중에서 date날짜에 있는 것만 리턴한다
 //        if let date = date{

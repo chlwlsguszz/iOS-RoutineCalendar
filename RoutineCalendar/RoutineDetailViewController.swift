@@ -39,7 +39,7 @@ class RoutineDetailViewController: UIViewController {
         //typePicker.dataSource = self
         //typePicker.delegate = self
         
-        routine = routine ?? Routine(date: Date(), withData: true)
+        routine = routine ?? Routine(/*date: Date(), withData: true*/)
         //dateDatePicker.date = routine?.date ?? Date()
         //ownerLabel.text = routine?.owner       // plan!.owner과 차이는? optional chainingtype
         
