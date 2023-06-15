@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		055833FA2A3AEEAF00A87245 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 055833F92A3AEEAF00A87245 /* Main.storyboard */; };
+		055833FC2A3B67FF00A87245 /* CheckCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055833FB2A3B67FF00A87245 /* CheckCalendarViewController.swift */; };
 		0576F3672A08D1FA0019E041 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 0576F3662A08D1F90019E041 /* user.png */; };
 		0576F3692A08DC710019E041 /* SelectContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0576F3682A08DC710019E041 /* SelectContentViewController.swift */; };
 		0587B67C2A1AF4730045FDC3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0587B67B2A1AF4730045FDC3 /* GoogleService-Info.plist */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		055833F92A3AEEAF00A87245 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		055833FB2A3B67FF00A87245 /* CheckCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckCalendarViewController.swift; sourceTree = "<group>"; };
 		0576F3662A08D1F90019E041 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
 		0576F3682A08DC710019E041 /* SelectContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectContentViewController.swift; sourceTree = "<group>"; };
 		0587B67B2A1AF4730045FDC3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				05A0730329FF44690070300F /* SceneDelegate.swift */,
 				05A0730529FF44690070300F /* HomeViewController.swift */,
 				0596CC062A087F6000B34AF4 /* RoutineDetailViewController.swift */,
+				055833FB2A3B67FF00A87245 /* CheckCalendarViewController.swift */,
 				05A0731929FF46A20070300F /* Routine.swift */,
 				05A0731F29FF47250070300F /* RoutineGroup.swift */,
 				05A0731B29FF46DB0070300F /* Database.swift */,
@@ -248,6 +251,7 @@
 				05A0732029FF47250070300F /* RoutineGroup.swift in Sources */,
 				0596CC092A08944000B34AF4 /* Owner.swift in Sources */,
 				05A0730629FF44690070300F /* HomeViewController.swift in Sources */,
+				055833FC2A3B67FF00A87245 /* CheckCalendarViewController.swift in Sources */,
 				05A0731E29FF46F60070300F /* DbMemory.swift in Sources */,
 				05A0730229FF44690070300F /* AppDelegate.swift in Sources */,
 				05A0730429FF44690070300F /* SceneDelegate.swift in Sources */,

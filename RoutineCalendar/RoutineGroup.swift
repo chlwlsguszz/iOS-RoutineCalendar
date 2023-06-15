@@ -37,7 +37,7 @@ class RoutineGroup/*: NSObject*/{
 
 extension RoutineGroup{    // PlanGroup.swift
     
-    func queryRoutine(date: Date){
+    func queryRoutine(/*date: Date*/){
         routines.removeAll()    // 새로운 쿼리에 맞는 데이터를 채우기 위해 기존 데이터를 전부 지운다
         
         // date가 속한 1개월 +-알파만큼 가져온다

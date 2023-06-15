@@ -15,6 +15,12 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var fsCalendar: FSCalendar!
     var selectedDate: Date? = Date()
     
+    var selectedRoutine: Routine!
+    
+    @IBAction func emojiButtonPressed(_ sender: UIButton) {
+        //self.performSegue(withIdentifier: "ShowCheckCalendar", sender: self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         RoutineGroupTableView.dataSource = self        // 테이블뷰의 데이터 소스로 등록
@@ -27,13 +33,15 @@ class HomeViewController: UIViewController {
 
         // 단순히 planGroup객체만 생성한다
         routineGroup = RoutineGroup(parentNotification: receivingNotification)
-        routineGroup.queryRoutine(date: Date())       // 이달의 데이터를 가져온다. 데이터가 오면 planGroupListener가 호출된다.
+        routineGroup.queryRoutine(/*date: Date()*/)       // 이달의 데이터를 가져온다. 데이터가 오면 planGroupListener가 호출된다.
         navigationItem.title = "루틴 캘린더"
+        
+        setCalendarUI()
     }
-    override func viewDidAppear(_ animated: Bool) {
-        // 여기서 호출하는 이유는 present라는 함수 ViewController의 함수인데 이함수는 ViewController의 Layout이 완료된 이후에만 동작하기 때문
-        Owner.loadOwner(sender: self)
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        // 여기서 호출하는 이유는 present라는 함수 ViewController의 함수인데 이함수는 ViewController의 Layout이 완료된 이후에만 동작하기 때문
+//        Owner.loadOwner(sender: self)
+//    }
 
     func receivingNotification(plan: Routine?, action: DbAction?){
         // 데이터가 올때마다 이 함수가 호출되는데 맨 처음에는 기본적으로 add라는 액션으로 데이터가 온다.
@@ -78,6 +86,7 @@ extension HomeViewController: UITableViewDataSource {
 
         //let cell = UITableViewCell(style: .value1, reuseIdentifier: "") // TableViewCell을 생성한다
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlanTableViewCell")!
+        cell.selectionStyle = .none
   
         // planGroup는 대략 1개월의 플랜을 가지고 있다.
         let routine = routineGroup.getRoutines(/*date: selectedDate*/)[indexPath.row] // Date를 주지않으면 전체 plan을 가지고 온다
@@ -89,7 +98,12 @@ extension HomeViewController: UITableViewDataSource {
 //        (cell.contentView.subviews[2] as! UILabel).text = plan.date.toStringDateTime()
         //(cell.contentView.subviews[1] as! UILabel).text = plan.owner
         
-        (cell.contentView.subviews[0] as! UIButton).setTitle(routine.emoji, for: .normal)
+//        (cell.contentView.subviews[0] as! UIButton).setTitle(routine.emoji, for: .normal)
+        let emojiButton = (cell.contentView.subviews[0] as! UIButton)
+        emojiButton.setTitle(routine.emoji, for: .normal)
+        
+        emojiButton.tag = indexPath.row
+        emojiButton.addTarget(self, action: #selector(emojiButtonTapped), for: .touchUpInside)
         
         if let label = cell.contentView.subviews[1] as? UILabel {
             label.text = " "+routine.when
@@ -133,6 +147,12 @@ extension HomeViewController: UITableViewDataSource {
         let routine = routineGroup.getRoutines(/*date: selectedDate*/)[rowIndex]
         routine.toggleCheck(date: selectedDate!)
         routineGroup.saveChange(routine: routine, action: .Modify)
+    }
+    
+    @objc func emojiButtonTapped(_ sender: UIButton) {
+        let rowIndex = sender.tag
+        selectedRoutine = routineGroup.getRoutines()[rowIndex]
+        self.performSegue(withIdentifier: "ShowCheckCalendar", sender: self)
     }
 }
 
@@ -211,12 +231,28 @@ extension HomeViewController{     // PlanGroupViewController.swift
             routineDetailViewController.routine = Routine(/*date:nil, withData: false*/)
             RoutineGroupTableView.selectRow(at: nil, animated: true, scrollPosition: .none)
         }
-
+        
+        if segue.identifier == "ShowCheckCalendar"{
+            let checkCalendarViewController = segue.destination as! CheckCalendarViewController
+            //checkCalendarViewController.saveChangeDelegate = saveChange
+            
+            // 빈 plan을 생성하여 전달한다
+            checkCalendarViewController.routine = selectedRoutine
+            checkCalendarViewController.routineGroup = routineGroup
+            checkCalendarViewController.selectedDate = selectedDate
+        }
 
     }
 }
 
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
+    func setCalendarUI() {
+        self.fsCalendar.appearance.subtitleFont = .systemFont(ofSize: 12)
+        self.fsCalendar.appearance.titleTodayColor = .black
+        self.fsCalendar.appearance.subtitleTodayColor = .black
+        self.fsCalendar.appearance.borderDefaultColor = .black
+        self.fsCalendar.appearance.borderSelectionColor = .black
+    }
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         // 날짜가 선택되면 호출된다
         selectedDate = date.setCurrentTime()
@@ -243,28 +279,12 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
         
-        let fromDate = selectedDate!.firstOfMonth()// 1일이 속한 일요일을 시작시간
-        let toDate = selectedDate!.lastOfMonth()    // 이달 마지막일이 속한 토요일을 마감시간
-        
-        if date < fromDate || date > toDate {
-            return .white
-        }
-        
-        let checkCount = routineGroup.checkCount(date: date)
-        let routineCount = routineGroup.routines.count
-        
-        let completionPercentage = Double(checkCount) / Double(routineCount) * 100
-        
-        if completionPercentage < 50 {
-            return .red // Red color for below 50%
-        } else if completionPercentage < 80 {
-            return .yellow // Yellow color for 50% to 79%
-        } else {
-            return .green // Green color for 80% and above
-        }
-    }
-    
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
+//        let fromDate = selectedDate!.firstOfMonth()// 1일이 속한 일요일을 시작시간
+//        let toDate = selectedDate!.lastOfMonth()    // 이달 마지막일이 속한 토요일을 마감시간
+//
+//        if !(date >= fromDate && date <= toDate) {
+//            return .white
+//        }
         
         let checkCount = routineGroup.checkCount(date: date)
         let routineCount = routineGroup.routines.count
@@ -279,28 +299,32 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
             return .green // Green color for 80% and above
         }
     }
-    // 선택된 날짜 테두리 색상
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderSelectionColorFor date: Date) -> UIColor? {
-        return UIColor.black.withAlphaComponent(1.0)
-    }
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderDefaultColorFor date: Date) -> UIColor? {
-        let fromDate = selectedDate!.firstOfMonth()// 1일이 속한 일요일을 시작시간
-        let toDate = selectedDate!.lastOfMonth()    // 이달 마지막일이 속한 토요일을 마감시간
-        
-        print(fromDate)
-        print(toDate)
-        if date < fromDate || date > toDate {
-            return .white
-        }
-        return .black
-    }
     
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
-        return .black
-    }
+//    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
+//        .darkGray
+//    }
+//    // 선택된 날짜 테두리 색상
+//    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderSelectionColorFor date: Date) -> UIColor? {
+//        return UIColor.black.withAlphaComponent(1.0)
+//    }
+//    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderDefaultColorFor date: Date) -> UIColor? {
+////        let fromDate = selectedDate!.firstOfMonth()// 1일이 속한 일요일을 시작시간
+////        let toDate = selectedDate!.lastOfMonth()    // 이달 마지막일이 속한 토요일을 마감시간
+////
+////        print(fromDate)
+////        print(toDate)
+////        if date < fromDate || date > toDate {
+////            return .white
+////        }
+//        return .black
+//    }
     
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, subtitleSelectionColorFor date: Date) -> UIColor? {
-        return .black
-    }
+//    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
+//        return .black
+//    }
+//
+//    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, subtitleSelectionColorFor date: Date) -> UIColor? {
+//        return .black
+//    }
     
 }

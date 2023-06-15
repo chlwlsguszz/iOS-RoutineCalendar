@@ -4,7 +4,7 @@
 //
 //  Created by 최진현 on 2023/05/08.
 //
-
+/*
 import UIKit
 
 class Owner{
@@ -33,3 +33,4 @@ class Owner{
         return ""        // 없으면 “”를 리턴
     }
 }
+*/
