@@ -107,10 +107,10 @@ extension HomeViewController: UITableViewDataSource {
         let checkButton = (cell.contentView.subviews[3] as! UIButton)
         
         if(routine.isChecked(date: selectedDate!)) {
-            print("debug:\(selectedDate?.toStringDate()) checked")
+            //print("debug:\(selectedDate?.toStringDate()) checked")
             checkButton.setTitle("✅", for: .normal)
         } else {
-            print("debug:\(selectedDate?.toStringDate()) unchecked")
+            //print("debug:\(selectedDate?.toStringDate()) unchecked")
             checkButton.setTitle("", for: .normal)
         }
         
@@ -216,24 +216,91 @@ extension HomeViewController{     // PlanGroupViewController.swift
     }
 }
 
-extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource{
+extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         // 날짜가 선택되면 호출된다
         selectedDate = date.setCurrentTime()
-        print(selectedDate?.toStringDate())
+        //print(selectedDate?.toStringDate())
+        self.RoutineGroupTableView.reloadData()
         //routineGroup.queryRoutine(date: date)
     }
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         // 스와이프로 월이 변경되면 호출된다
         selectedDate = calendar.currentPage
-        print(selectedDate?.toStringDate())
+        //print(selectedDate?.toStringDate())
+        self.RoutineGroupTableView.reloadData()
         //routineGroup.queryRoutine(date: calendar.currentPage)
     }
     
     // 이함수를 fsCalendar.reloadData()에 의하여 모든 날짜에 대하여 호출된다.
     func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
-        print(selectedDate?.toStringDate())
-        return "\(routineGroup.routines.count)"    // date에 해당한 plans의 갯수를 뱃지로 출력한다
+        //print(selectedDate?.toStringDate())
+        let checkCount = routineGroup.checkCount(date: date)
+        let routineCount = routineGroup.routines.count
+        return "\(checkCount)/\(routineCount)"    // date에 해당한 plans의 갯수를 뱃지로 출력한다
     }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
+        
+        let fromDate = selectedDate!.firstOfMonth()// 1일이 속한 일요일을 시작시간
+        let toDate = selectedDate!.lastOfMonth()    // 이달 마지막일이 속한 토요일을 마감시간
+        
+        if date < fromDate || date > toDate {
+            return .white
+        }
+        
+        let checkCount = routineGroup.checkCount(date: date)
+        let routineCount = routineGroup.routines.count
+        
+        let completionPercentage = Double(checkCount) / Double(routineCount) * 100
+        
+        if completionPercentage < 50 {
+            return .red // Red color for below 50%
+        } else if completionPercentage < 80 {
+            return .yellow // Yellow color for 50% to 79%
+        } else {
+            return .green // Green color for 80% and above
+        }
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
+        
+        let checkCount = routineGroup.checkCount(date: date)
+        let routineCount = routineGroup.routines.count
+        
+        let completionPercentage = Double(checkCount) / Double(routineCount) * 100
+        
+        if completionPercentage < 50 {
+            return .red // Red color for below 50%
+        } else if completionPercentage < 80 {
+            return .yellow // Yellow color for 50% to 79%
+        } else {
+            return .green // Green color for 80% and above
+        }
+    }
+    // 선택된 날짜 테두리 색상
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderSelectionColorFor date: Date) -> UIColor? {
+        return UIColor.black.withAlphaComponent(1.0)
+    }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderDefaultColorFor date: Date) -> UIColor? {
+        let fromDate = selectedDate!.firstOfMonth()// 1일이 속한 일요일을 시작시간
+        let toDate = selectedDate!.lastOfMonth()    // 이달 마지막일이 속한 토요일을 마감시간
+        
+        print(fromDate)
+        print(toDate)
+        if date < fromDate || date > toDate {
+            return .white
+        }
+        return .black
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
+        return .black
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, subtitleSelectionColorFor date: Date) -> UIColor? {
+        return .black
+    }
+    
 }

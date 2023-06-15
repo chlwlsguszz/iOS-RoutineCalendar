@@ -68,7 +68,7 @@ extension RoutineGroup{     // PlanGroup.swift
 //            }
 //            return planForDate
 //        }
-        print("debug:\(routines)")
+        //print("debug:\(routines)")
         return routines
     }
 }
@@ -114,4 +114,14 @@ extension RoutineGroup{         // PlanGroup.swift
     }
 }
 
-
+extension RoutineGroup {
+    func checkCount(date: Date) -> Int {
+        var count = 0
+        for r in routines {
+            if(r.isChecked(date: date)) {
+                count += 1;
+            }
+        }
+        return count;
+    }
+}

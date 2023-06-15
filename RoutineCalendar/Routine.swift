@@ -131,8 +131,8 @@ extension Routine {
     }
     
     func isChecked(date: Date) -> Bool {
-        print("debug2:\(date.toStringDate())")
-        print("debug2:\(checkedDates)")
+        //print("debug2:\(date.toStringDate())")
+        //print("debug2:\(checkedDates)")
         return checkedDates[date.toStringDate()] ?? false
     }
 }
