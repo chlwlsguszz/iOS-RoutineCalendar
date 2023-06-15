@@ -41,9 +41,9 @@ extension RoutineGroup{    // PlanGroup.swift
         routines.removeAll()    // 새로운 쿼리에 맞는 데이터를 채우기 위해 기존 데이터를 전부 지운다
         
         // date가 속한 1개월 +-알파만큼 가져온다
-        fromDate = date.firstOfMonth().firstOfWeek()// 1일이 속한 일요일을 시작시간
-        toDate = date.lastOfMonth().lastOfWeek()    // 이달 마지막일이 속한 토요일을 마감시간
-        database.queryRoutine(fromDate: fromDate!, toDate: toDate!)
+        //fromDate = date.firstOfMonth().firstOfWeek()// 1일이 속한 일요일을 시작시간
+        //toDate = date.lastOfMonth().lastOfWeek()    // 이달 마지막일이 속한 토요일을 마감시간
+        database.queryRoutine(/*fromDate: fromDate!, toDate: toDate!*/)
     }
     
     func saveChange(routine: Routine, action: DbAction){
@@ -57,17 +57,18 @@ extension RoutineGroup{     // PlanGroup.swift
     func getRoutines(date: Date? = nil) -> [Routine] {
         
         // plans중에서 date날짜에 있는 것만 리턴한다
-        if let date = date{
-            var planForDate: [Routine] = []
-            let start = date.firstOfDay()    // yyyy:mm:dd 00:00:00
-            let end = date.lastOfDay()    // yyyy:mm”dd 23:59:59
-            for plan in routines{
-                if plan.date >= start && plan.date <= end {
-                    planForDate.append(plan)
-                }
-            }
-            return planForDate
-        }
+//        if let date = date{
+//            var planForDate: [Routine] = []
+//            let start = date.firstOfDay()    // yyyy:mm:dd 00:00:00
+//            let end = date.lastOfDay()    // yyyy:mm”dd 23:59:59
+//            for plan in routines{
+//                if plan.date >= start && plan.date <= end {
+//                    planForDate.append(plan)
+//                }
+//            }
+//            return planForDate
+//        }
+        print("debug:\(routines)")
         return routines
     }
 }

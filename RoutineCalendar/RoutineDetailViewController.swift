@@ -11,7 +11,9 @@ import MCEmojiPicker
 class RoutineDetailViewController: UIViewController {
     
     @IBAction func pressedOkButton(_ sender: UIButton) {
+        routine!.when = whenTextField.text!
         routine!.content = contentTextField.text!
+        routine!.emoji = tempEmojiString!
         saveChangeDelegate?(routine!)
         navigationController?.popViewController(animated: true)
     }
@@ -23,11 +25,13 @@ class RoutineDetailViewController: UIViewController {
         present(viewController, animated: true)
     }
     
+    @IBOutlet weak var whenTextField: UITextField!
     @IBOutlet weak var contentTextField: UITextField!
     
     
     var routine: Routine? // 나중에 PlanGroupViewController로부터 데이터를 전달받는다
     var saveChangeDelegate: ((Routine)-> Void)?
+    var tempEmojiString: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,8 +50,10 @@ class RoutineDetailViewController: UIViewController {
         //contentTextView.text = routine?.content
         
         if let routine = routine {
+            whenTextField.text = routine.when
             contentTextField.text = routine.content
             emojiButton.setTitle(routine.emoji, for: .normal)
+            tempEmojiString = routine.emoji
         }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -122,6 +128,6 @@ extension RoutineDetailViewController{
 extension RoutineDetailViewController: MCEmojiPickerDelegate {
     func didGetEmoji(emoji: String) {
         emojiButton.setTitle(emoji, for: .normal)
-        routine!.emoji = emoji
+        tempEmojiString = emoji
     }
 }

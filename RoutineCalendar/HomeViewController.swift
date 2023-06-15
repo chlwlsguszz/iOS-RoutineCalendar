@@ -48,11 +48,11 @@ extension HomeViewController{
         if RoutineGroupTableView.isEditing == true{
             RoutineGroupTableView.isEditing = false
             //sender.setTitle("Edit", for: .normal)
-            sender.title = "Edit"
+            sender.title = "편집"
         }else{
             RoutineGroupTableView.isEditing = true
             //sender.setTitle("Done", for: .normal)
-            sender.title = "Done"
+            sender.title = "완료"
         }
     }
 }
@@ -80,17 +80,28 @@ extension HomeViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlanTableViewCell")!
   
         // planGroup는 대략 1개월의 플랜을 가지고 있다.
-        let plan = routineGroup.getRoutines(date: selectedDate)[indexPath.row] // Date를 주지않으면 전체 plan을 가지고 온다
+        let routine = routineGroup.getRoutines(date: selectedDate)[indexPath.row] // Date를 주지않으면 전체 plan을 가지고 온다
 
         // 적절히 cell에 데이터를 채움
         //cell.textLabel!.text = plan.date.toStringDateTime()
         //cell.detailTextLabel?.text = plan.content
         
-        (cell.contentView.subviews[2] as! UILabel).text = plan.date.toStringDateTime()
+//        (cell.contentView.subviews[2] as! UILabel).text = plan.date.toStringDateTime()
         //(cell.contentView.subviews[1] as! UILabel).text = plan.owner
-        (cell.contentView.subviews[1] as! UILabel).text = plan.content
         
-        (cell.contentView.subviews[0] as! UIImageView).image = UIImage(named: "user.png")
+        if let label = cell.contentView.subviews[2] as? UILabel {
+            label.text = " "+routine.content
+            label.layer.borderWidth = 1.0
+            label.layer.cornerRadius = 4.0
+        }
+        
+        if let label = cell.contentView.subviews[1] as? UILabel {
+            label.text = " "+routine.when
+            label.layer.borderWidth = 1.0
+            label.layer.cornerRadius = 4.0
+        }
+        
+        (cell.contentView.subviews[0] as! UIButton).setTitle(routine.emoji, for: .normal)
         
 //        cell.accessoryType = .none
 //        cell.accessoryView = nil
