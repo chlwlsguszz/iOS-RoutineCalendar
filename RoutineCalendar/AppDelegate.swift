@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  ch09-최진현-tableView
-//
-//  Created by 최진현 on 2023/05/01.
-//
-
 import UIKit
 
 @main

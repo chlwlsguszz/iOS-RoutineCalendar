@@ -9,12 +9,9 @@
 /* Begin PBXBuildFile section */
 		055833FA2A3AEEAF00A87245 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 055833F92A3AEEAF00A87245 /* Main.storyboard */; };
 		055833FC2A3B67FF00A87245 /* CheckCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055833FB2A3B67FF00A87245 /* CheckCalendarViewController.swift */; };
-		0576F3672A08D1FA0019E041 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 0576F3662A08D1F90019E041 /* user.png */; };
-		0576F3692A08DC710019E041 /* SelectContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0576F3682A08DC710019E041 /* SelectContentViewController.swift */; };
 		0587B67C2A1AF4730045FDC3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0587B67B2A1AF4730045FDC3 /* GoogleService-Info.plist */; };
 		0587B67E2A1B00D50045FDC3 /* DBFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0587B67D2A1B00D50045FDC3 /* DBFirebase.swift */; };
 		0596CC072A087F6000B34AF4 /* RoutineDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0596CC062A087F6000B34AF4 /* RoutineDetailViewController.swift */; };
-		0596CC092A08944000B34AF4 /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0596CC082A08944000B34AF4 /* Owner.swift */; };
 		05A0730229FF44690070300F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A0730129FF44690070300F /* AppDelegate.swift */; };
 		05A0730429FF44690070300F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A0730329FF44690070300F /* SceneDelegate.swift */; };
 		05A0730629FF44690070300F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A0730529FF44690070300F /* HomeViewController.swift */; };
@@ -23,7 +20,6 @@
 		05A0731629FF46160070300F /* ExtendedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A0731529FF46160070300F /* ExtendedDate.swift */; };
 		05A0731A29FF46A20070300F /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A0731929FF46A20070300F /* Routine.swift */; };
 		05A0731C29FF46DB0070300F /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A0731B29FF46DB0070300F /* Database.swift */; };
-		05A0731E29FF46F60070300F /* DbMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A0731D29FF46F60070300F /* DbMemory.swift */; };
 		05A0732029FF47250070300F /* RoutineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A0731F29FF47250070300F /* RoutineGroup.swift */; };
 		17BE492CDF964F1B61B4AC96 /* Pods_RoutineCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F52355E76FA2FF6E98B68A26 /* Pods_RoutineCalendar.framework */; };
 /* End PBXBuildFile section */
@@ -31,12 +27,9 @@
 /* Begin PBXFileReference section */
 		055833F92A3AEEAF00A87245 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		055833FB2A3B67FF00A87245 /* CheckCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckCalendarViewController.swift; sourceTree = "<group>"; };
-		0576F3662A08D1F90019E041 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
-		0576F3682A08DC710019E041 /* SelectContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectContentViewController.swift; sourceTree = "<group>"; };
 		0587B67B2A1AF4730045FDC3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0587B67D2A1B00D50045FDC3 /* DBFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBFirebase.swift; sourceTree = "<group>"; };
 		0596CC062A087F6000B34AF4 /* RoutineDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineDetailViewController.swift; sourceTree = "<group>"; };
-		0596CC082A08944000B34AF4 /* Owner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Owner.swift; sourceTree = "<group>"; };
 		05A072FE29FF44690070300F /* RoutineCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoutineCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05A0730129FF44690070300F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		05A0730329FF44690070300F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,7 +40,6 @@
 		05A0731529FF46160070300F /* ExtendedDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedDate.swift; sourceTree = "<group>"; };
 		05A0731929FF46A20070300F /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
 		05A0731B29FF46DB0070300F /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
-		05A0731D29FF46F60070300F /* DbMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DbMemory.swift; sourceTree = "<group>"; };
 		05A0731F29FF47250070300F /* RoutineGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineGroup.swift; sourceTree = "<group>"; };
 		635DA9E56830EA8086ADF005 /* Pods-RoutineCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoutineCalendar.release.xcconfig"; path = "Target Support Files/Pods-RoutineCalendar/Pods-RoutineCalendar.release.xcconfig"; sourceTree = "<group>"; };
 		C64CCAF3573ED0E585C6A1A8 /* Pods-RoutineCalendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoutineCalendar.debug.xcconfig"; path = "Target Support Files/Pods-RoutineCalendar/Pods-RoutineCalendar.debug.xcconfig"; sourceTree = "<group>"; };
@@ -96,16 +88,12 @@
 				05A0731F29FF47250070300F /* RoutineGroup.swift */,
 				05A0731B29FF46DB0070300F /* Database.swift */,
 				0587B67D2A1B00D50045FDC3 /* DBFirebase.swift */,
-				05A0731D29FF46F60070300F /* DbMemory.swift */,
 				05A0731529FF46160070300F /* ExtendedDate.swift */,
-				0596CC082A08944000B34AF4 /* Owner.swift */,
-				0576F3682A08DC710019E041 /* SelectContentViewController.swift */,
 				055833F92A3AEEAF00A87245 /* Main.storyboard */,
 				05A0730C29FF446A0070300F /* LaunchScreen.storyboard */,
 				05A0730F29FF446A0070300F /* Info.plist */,
 				0587B67B2A1AF4730045FDC3 /* GoogleService-Info.plist */,
 				05A0730A29FF446A0070300F /* Assets.xcassets */,
-				0576F3662A08D1F90019E041 /* user.png */,
 			);
 			path = RoutineCalendar;
 			sourceTree = "<group>";
@@ -191,7 +179,6 @@
 				055833FA2A3AEEAF00A87245 /* Main.storyboard in Resources */,
 				05A0730B29FF446A0070300F /* Assets.xcassets in Resources */,
 				0587B67C2A1AF4730045FDC3 /* GoogleService-Info.plist in Resources */,
-				0576F3672A08D1FA0019E041 /* user.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,15 +231,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0576F3692A08DC710019E041 /* SelectContentViewController.swift in Sources */,
 				05A0731C29FF46DB0070300F /* Database.swift in Sources */,
 				0587B67E2A1B00D50045FDC3 /* DBFirebase.swift in Sources */,
 				05A0731629FF46160070300F /* ExtendedDate.swift in Sources */,
 				05A0732029FF47250070300F /* RoutineGroup.swift in Sources */,
-				0596CC092A08944000B34AF4 /* Owner.swift in Sources */,
 				05A0730629FF44690070300F /* HomeViewController.swift in Sources */,
 				055833FC2A3B67FF00A87245 /* CheckCalendarViewController.swift in Sources */,
-				05A0731E29FF46F60070300F /* DbMemory.swift in Sources */,
 				05A0730229FF44690070300F /* AppDelegate.swift in Sources */,
 				05A0730429FF44690070300F /* SceneDelegate.swift in Sources */,
 				05A0731A29FF46A20070300F /* Routine.swift in Sources */,

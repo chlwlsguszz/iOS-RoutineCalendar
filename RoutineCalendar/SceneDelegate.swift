@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  ch09-최진현-tableView
-//
-//  Created by 최진현 on 2023/05/01.
-//
-
 import UIKit
 import FirebaseFirestore
 import FirebaseCore
@@ -19,7 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
-        FirebaseApp.configure() // 연결을 시작한다
+        FirebaseApp.configure()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
